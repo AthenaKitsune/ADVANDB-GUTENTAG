@@ -4,7 +4,7 @@
 			html {overflow-y:hidden; overflow-x:hidden;}
 			body {font-family:verdana; background-image:url("pic/bg3.jpg");}
 			#top {position:fixed; top:50%; left:50%; margin-top:-272; margin-left:-272; color:black; z-index:10}
-			#content {position:absolute; border-radius:8px; height:300px; width:600px; top:50%; left:50%; margin-top:-150px; margin-left:-300px; text-align:center; clear:both; z-index:5}
+			#content {position:absolute; border-radius:8px; width:800px; top:50%; left:50%; margin-top:-150px; margin-left:-400px; text-align:center; clear:both; z-index:5}
 			#end {position:absolute; text-align:center; padding-top:5px; padding-bottom:5px; color:white; width:100%; height:20px; bottom:0; left:0; background:rgba(192,192,192,0.7);}
 			.rainbow {
 				background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
@@ -25,13 +25,13 @@
 			<form name="mahjong" action="results.php" method="post">
 				<p style="padding-right:0px;">
 				<select name="queries">
-					<option value="query1">An OPTIMIZED query that talks about how optimized this query currently is</option>
-					<option value="query2">Bottom 10 stuff</option>
-					<option value="query3">Middle 10 stuff</option>
-					<option value="query4">Random 10 stuff</option>
-					<option value="query5">TOP 10 stuff</option>
-					<option value="query6">SELECT * FROM employee</option>
-					<option value="query7">SELECT employee.id FROM employee</option>
+					<option value="query1">Number of community members that are registered voters but are not studying and are unemployed</option>
+					<option value="query2">Number of community members that are working students and are minor</option>
+					<option value="query3">Number of deaths per municipality that were caused by common diseases</option>
+					<option value="query4">Crimes that are being done to people per municipality</option>
+					<option value="query5">Average number of crops harvested by people who work in the crop industry per municipality for the last 12 months</option>
+					<option value="query6">Average number of seafood fished from the sea per municipality coming from the people in the crop industry for the last 12 months</option>
+					<option value="query7">Income of the fishing, crop, and livestock industry per municipality with the average yield of crops and fish for the last 12 months.</option>
 				</select>
 				<p>
 				<input style="border-radius:10px; padding-left:5px; height:30px;" type="submit" value="Submit Query"></p>

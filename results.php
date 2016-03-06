@@ -72,22 +72,28 @@
 				$exec = microtime(true)-$exec;
 				//echo ($msc * 1000) . ' ms';
 				
+				$result = mysqli_query($con, $sql) or die(mysqli_error());
+				
+				//Print the column names
 				$i = 0;				
 				echo '<tr>';
 				while ($i < mysqli_num_fields($result)) {
-					$meta = mysqli_num_fields($result, $i);
-					echo '<td>' . $meta->name . '</td>';
-					array_push($cols, $meta->name);
+					$field_info = mysqli_fetch_field($result, $i);
+					echo '<td>' . $field_info->name . '</td>';
 					$i++;
 				}
 				echo '</tr>';
-				while ($row = mysqli_fetch_array($result)) {
-					echo '<tr>';
-					for ($x = 0; $x < count ($cols); $x++) {
-						echo '<td>' . $row[$cols[$x]] . '</td>';
+				
+				//Print the data
+				while($row = mysqli_fetch_row($result)) {
+					echo "<tr>";
+					foreach($row as $value) {
+						echo "<td>" . $value . "</td>";
 					}
-					echo '</tr>';
+					echo "</tr>";
 				}
+				
+				mysqli_close($con);
 			?>
 		</div>
 		</center>

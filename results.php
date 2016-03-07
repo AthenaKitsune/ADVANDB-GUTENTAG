@@ -36,16 +36,44 @@
 							WHERE age_yr < 18 AND educal < 41 AND jobind = 1 AND educind = 1;";
 				}
 				else if ($_POST['queries'] == 'Submit Query 3') {
-					$sql = "SELECT hpq_hh.mun, COUNT(hpq_hh.mun)
-							FROM hpq_hh JOIN hpq_death ON hpq_hh.id = hpq_death.main_id
-							WHERE hpq_death.mdeady!=9 OR hpq_death.mdeady > 12
-							GROUP BY hpq_hh.mun;";
+					if ($_POST['query3'] == 'm') {
+						$sql = "SELECT hpq_hh.mun, COUNT(hpq_hh.mun)
+								FROM hpq_hh JOIN hpq_death ON hpq_hh.id = hpq_death.main_id
+								WHERE hpq_death.mdeady!=9 OR hpq_death.mdeady > 12
+								GROUP BY hpq_hh.mun;";
+					}
+					else if ($_POST['query3'] == 'b') {
+						$sql = "SELECT hpq_hh.barangay, COUNT(hpq_hh.barangay)
+								FROM hpq_hh JOIN hpq_death ON hpq_hh.id = hpq_death.main_id
+								WHERE hpq_death.mdeady!=9 OR hpq_death.mdeady > 12
+								GROUP BY hpq_hh.barangay;";
+					}
+					else if ($_POST['query3'] == 'p') {
+						$sql = "SELECT hpq_hh.purok, COUNT(hpq_hh.purok)
+								FROM hpq_hh JOIN hpq_death ON hpq_hh.id = hpq_death.main_id
+								WHERE hpq_death.mdeady!=9 OR hpq_death.mdeady > 12
+								GROUP BY hpq_hh.purok;";
+					}
 				}
 				else if ($_POST['queries'] == 'Submit Query 4') {
-					$sql = "SELECT hpq_hh.mun, SUM(hpq_mem.mtheftind), SUM(hpq_mem.mrapeind), SUM(hpq_mem.minjurind), SUM(hpq_mem.mcarnapind), SUM(hpq_mem.mcattrustlind)
-							FROM hpq_hh JOIN hpq_mem ON hpq_hh.id = hpq_mem.main_id
-							WHERE hpq_mem.mcrimeind = 1
-							GROUP BY hpq_hh.mun;";
+					if ($_POST['query4'] == 'm') {
+						$sql = "SELECT hpq_hh.mun, SUM(hpq_mem.mtheftind), SUM(hpq_mem.mrapeind), SUM(hpq_mem.minjurind), SUM(hpq_mem.mcarnapind), SUM(hpq_mem.mcattrustlind)
+								FROM hpq_hh JOIN hpq_mem ON hpq_hh.id = hpq_mem.main_id
+								WHERE hpq_mem.mcrimeind = 1
+								GROUP BY hpq_hh.mun;";
+					}
+					else if ($_POST['query4'] == 'b') {
+						$sql = "SELECT hpq_hh.barangay, SUM(hpq_mem.mtheftind), SUM(hpq_mem.mrapeind), SUM(hpq_mem.minjurind), SUM(hpq_mem.mcarnapind), SUM(hpq_mem.mcattrustlind)
+								FROM hpq_hh JOIN hpq_mem ON hpq_hh.id = hpq_mem.main_id
+								WHERE hpq_mem.mcrimeind = 1
+								GROUP BY hpq_hh.barangay;";
+					}
+					else if ($_POST['query4'] == 'p') {
+						$sql = "SELECT hpq_hh.purok, SUM(hpq_mem.mtheftind), SUM(hpq_mem.mrapeind), SUM(hpq_mem.minjurind), SUM(hpq_mem.mcarnapind), SUM(hpq_mem.mcattrustlind)
+								FROM hpq_hh JOIN hpq_mem ON hpq_hh.id = hpq_mem.main_id
+								WHERE hpq_mem.mcrimeind = 1
+								GROUP BY hpq_hh.purok;";
+					}
 				}
 				else if ($_POST['queries'] == 'Submit Query 5') {
 					$sql = "SELECT hpq_hh.mun, AVG(hpq_crop.crop_vol)
@@ -70,17 +98,15 @@
 				$exec = microtime(true);
 				mysqli_query($con, $sql);
 				$exec = microtime(true)-$exec;
-				//echo ($msc * 1000) . ' ms';
+				echo 'Execution Time: ' . ($msc * 1000) . ' ms';
 				
 				$result = mysqli_query($con, $sql) or die(mysqli_error());
 				
 				//Print the column names
-				$i = 0;				
+				echo '<table>';
 				echo '<tr>';
-				while ($i < mysqli_num_fields($result)) {
-					$field_info = mysqli_fetch_field($result, $i);
+				while ($field_info = mysqli_fetch_field($result)) {
 					echo '<td>' . $field_info->name . '</td>';
-					$i++;
 				}
 				echo '</tr>';
 				
@@ -92,7 +118,7 @@
 					}
 					echo "</tr>";
 				}
-				
+				echo '</table>';
 				mysqli_close($con);
 			?>
 		</div>
